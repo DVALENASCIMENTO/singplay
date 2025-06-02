@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App de Letras de Músicas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Músicas</h2>
+                <button id="toggle-sidebar" class="toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar música...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <ul class="song-list" id="song-list">
+                <!-- Lista de músicas será preenchida via JavaScript -->
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="lyrics-container" id="lyrics-container">
+                <div class="welcome-message" id="welcome-message">
+                    <h2>Bem-vindo ao App de Letras de Músicas</h2>
+                    <p>Selecione uma música na lista para ver sua letra.</p>
+                    <i class="fas fa-music music-icon"></i>
+                </div>
+                <div class="lyrics-content" id="lyrics-content">
+                    <h2 id="song-title"></h2>
+                    <h3 id="song-artist"></h3>
+                    <div id="lyrics-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="songs/songs.js"></script>
+    <script src="audios/audios.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
