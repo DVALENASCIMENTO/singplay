@@ -1,51 +1,100 @@
 /* /singplay/service-worker.js */
-const CACHE_NAME = 'singplay-cache-v1';
+const STATIC_CACHE   = 'singplay-static-v1';
+const AUDIO_CACHE    = 'singplay-audio-v1';
 
-/* Arquivos que SEMPRE vamos pré‑armazenar (html, css, js, imagens)  */
+/* Arquivos essenciais: interface, scripts, logo… */
 const STATIC_ASSETS = [
-  './',                     // página inicial
+  './',
   './index.html',
   './css/styles.css',
   './js/script.js',
-  './audios/audios.js',
   './songs/songs.js',
-  // coloque aqui imagens que aparecem na 1ª tela
-  // ex.: './img/logo.png'
+  './audios/audios.js',
+  './img/singplaylogo.png',
+  './manifest.json'
 ];
 
-/* INSTALAÇÃO: grava tudo em cache antes de o usuário ficar offline */
+/* ---------- INSTALL: pré‑cache de arquivos estáticos ---------- */
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-          .then(cache => cache.addAll(STATIC_ASSETS))
+    caches.open(STATIC_CACHE).then(c => c.addAll(STATIC_ASSETS))
   );
-  self.skipWaiting();          // ativa o SW imediatamente
+  self.skipWaiting();
 });
 
-/* FETCH: primeiro tenta o cache; se não houver, busca na rede e guarda */
+/* ---------- ACTIVATE: limpa versões antigas ---------- */
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(k => ![STATIC_CACHE, AUDIO_CACHE].includes(k))
+            .map(k => caches.delete(k))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+/* ---------- FETCH: estratégia personalizada ---------- */
 self.addEventListener('fetch', event => {
   const { request } = event;
+  const url = new URL(request.url);
 
-  /* regra específica p/ áudio .mp3: faz cache “sob demanda” */
-  if (request.url.endsWith('.mp3')) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then(async cache => {
-        const cached = await cache.match(request);
-        if (cached) return cached;         // já temos off‑line
-
-        /* baixa da rede, grava no cache e devolve ao player  */
-        const resp = await fetch(request);
-        cache.put(request, resp.clone());
-        return resp;
-      })
-    );
-    return;   // evita cair na regra genérica
+  /* === 1) ÁUDIOS (.mp3) – cache dinâmico  === */
+  if (url.pathname.endsWith('.mp3')) {
+    event.respondWith(cacheThenNetwork(request));
+    return;
   }
 
-  /* regra genérica para qualquer outro arquivo */
+  /* === 2) Demais arquivos – cache first === */
   event.respondWith(
     caches.match(request).then(
-      resp => resp || fetch(request)
+      cached => cached || fetch(request)
     )
   );
 });
+
+/* ---------- Função de cache dinâmico p/ áudio ---------- */
+async function cacheThenNetwork(request) {
+  const cache = await caches.open(AUDIO_CACHE);
+
+  /* ➜ Removemos o cabeçalho Range da chave, para evitar múltiplas
+       entradas “incompletas” para o MESMO arquivo                 */
+  const cleanRequest = request.headers.has('range')
+      ? requestCloneWithoutRange(request)
+      : request;
+
+  /* 1. Tenta cache */
+  const cached = await cache.match(cleanRequest.url);
+  if (cached) {
+    /* Se o player pediu apenas um trecho (Range), entregamos o
+       arquivo completo armazenado; o navegador lida com o corte  */
+    return cached;
+  }
+
+  /* 2. Se não tem cache, baixa da rede e armazena */
+  try {
+    const networkResp = await fetch(request);
+    cache.put(cleanRequest.url, networkResp.clone()); // salva original
+    return networkResp;
+  } catch (err) {
+    /* 3. Offline e sem cache → erro genérico */
+    return new Response('Offline e sem cache para este arquivo.',
+                        { status: 503 });
+  }
+}
+
+/* ---------- Helper: clona Request sem cabeçalho Range ---------- */
+function requestCloneWithoutRange(req) {
+  const headers = new Headers(req.headers);
+  headers.delete('range');
+  return new Request(req.url, {
+    method: req.method,
+    headers,
+    mode: req.mode,
+    credentials: req.credentials,
+    redirect: req.redirect,
+    referrer: req.referrer,
+    integrity: req.integrity
+  });
+}
