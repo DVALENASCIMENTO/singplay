@@ -3,7 +3,41 @@ const songsDatabase = [
         id: 1,
         title: "Coisa Linda",
         artist: "Tiago Iorc",
-        lyrics: ""
+        lyrics: `Linda Do jeito que é
+                Da cabeça ao pé
+                Do jeitinho que for
+                É, e só de pensar
+                Sei que já vou estar
+                Morrendo de amor
+                De amor
+
+                Coisa linda
+                Vou pra onde você está
+                Não precisa nem chamar
+                Coisa linda
+                Vou pronde você está
+
+                Linda
+                Feito manhã
+                Feito chá de hortelã
+                Feito ir para o mar
+                Linda assim, deitada
+                Com a cara amassada
+                Enrolando o acordar
+                O acordar
+
+                Coisa linda
+                Vou pra onde você está
+                Não precisa nem chamar
+                Coisa linda
+                Vou pronde você está
+
+                Ah
+                Se a beleza mora no olhar
+                No meu você chegou e resolveu ficar
+                Pra fazer teu lar
+                Pra fazer teu lar`
+                       
     },
     {
         id: 2,
