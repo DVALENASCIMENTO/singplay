@@ -74,9 +74,7 @@ git clone https://github.com/seu-usuario/singplay.git
 
 ---
 
-## 🖼 Imagens da Interface
-
-![image](https://github.com/user-attachments/assets/f7b5b477-4e52-4b20-a489-5115994b00bd)
+## 🖼 Imagem da Interface
 
 ![image](https://github.com/user-attachments/assets/f7b5b477-4e52-4b20-a489-5115994b00bd)
 
