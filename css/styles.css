@@ -18,6 +18,18 @@ body {
     position: relative;
 }
 
+.logo-sidebar {
+  max-width: 80px;
+  margin-bottom: 15px;
+}
+
+.logo-main {
+  max-width: 150px;
+  margin-top: 20px;
+}
+
+
+
 /* Sidebar */
 .sidebar {
     width: 300px;
