@@ -43,43 +43,108 @@ const songsDatabase = [
         id: 2,
         title: "Só os Loucos Sabem",
         artist: "Charlie Brown Jr.",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 3,
         title: "O Sol",
         artist: "Vitor Kley",
-        lyrics: ""
+        lyrics: `Ô sol vê se não esquece e me ilumina
+Preciso de você aqui
+Ô sol vê se enriquece a minha melanina
+Só você me faz sorrir
+
+E quando você vem
+Tudo fica bem mais tranquilo
+Ô tranquilo
+Que assim seja, amém
+O seu brilho é o meu abrigo, meu abrigo
+
+E toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai
+
+Toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai vai
+Quem foi vai vai vaai
+Quem foi
+
+Ô sol vê se não esquece e me ilumina
+Preciso de você aqui
+Ô sol vê se enriquece a minha melanina
+Só você me faz sorrir
+
+E quando você vem
+Tudo fica bem mais tranquilo
+Ô tranquilo
+Que assim seja, amém
+O seu brilho é o meu abrigo, meu abrigo
+
+E toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai
+
+E toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai vai
+Quem foi vai vai vaai
+
+Ô sol vem aquece a minha alma
+E mantém a minha calma
+Não esquece que eu existo
+E me faz ficar tranquilo
+
+Ô sol vem aquece a minha alma
+E mantém a minha calma
+Não esquece que eu existo
+E me faz ficar tranquilo
+
+E toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai
+
+E toda vez que você sai
+O mundo se distrai
+Quem ficar, ficou
+Quem foi vai vai vai
+Quem foi vai vai vai
+Quem foi vai vai vai`
     },
     {
         id: 4,
         title: "Amei Te Ver",
         artist: "Tiago Iorc",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 5,
         title: "Rude",
         artist: "MAGIC!",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 6,
         title: "Is This Love",
         artist: "Bob Marley",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 7,
         title: "Vamos Fugir",
         artist: "Gilberto Gil",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 8,
         title: "Don’t Dream It’s Over",
         artist: "Crowded House",
-        lyrics: ""
+        lyrics: ``
     },
     {
         id: 9,
